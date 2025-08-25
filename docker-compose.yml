@@ -1,6 +1,6 @@
 services:
   app:
-    build: 
+    build:
       context: ./app
     ports:
       - 81:80
@@ -11,18 +11,29 @@ services:
       - db
     volumes:
       - ./app:/var/www/html
+  site:
+    build: 
+      context: ./site
+    ports:
+      - 8080:80
+    networks:
+      - net
+    depends_on:
+      - db
+    volumes:
+      - ./site:/var/www/html
   db:
     image: mariadb:latest
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: password
-      MARIADB_DATABASE: db
-      MARIADB_USER: khanr
-      MARIADB_PASSWORD: password
     volumes:
       - db_data:/var/lib/mysql
+      - ./init-multi-db.sql:/docker-entrypoint-initdb.d/init-multi-db.sql
     networks:
       - net
+    ports:
+      - "3306:3306"
 
 networks:
   net:
@@ -30,6 +41,3 @@ networks:
 
 volumes:
   db_data:
-    
-
-

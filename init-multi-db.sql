@@ -1,0 +1,7 @@
+CREATE DATABASE IF NOT EXISTS app_db;
+CREATE DATABASE IF NOT EXISTS wordpress_db;
+
+GRANT ALL PRIVILEGES ON app_db.* TO root@localhost;
+GRANT ALL PRIVILEGES ON wordpress_db.* TO root@localhost;
+FLUSH PRIVILEGES;
+
