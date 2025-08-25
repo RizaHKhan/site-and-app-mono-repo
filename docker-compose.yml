@@ -1,0 +1,35 @@
+services:
+  app:
+    build: 
+      context: ./app
+    ports:
+      - 81:80
+      - 5173:5173
+    networks:
+      - net
+    depends_on:
+      - db
+    volumes:
+      - ./app:/var/www/html
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: db
+      MARIADB_USER: khanr
+      MARIADB_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
+
+volumes:
+  db_data:
+    
+
+
