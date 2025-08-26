@@ -12,7 +12,7 @@ services:
     volumes:
       - ./app:/var/www/html
   site:
-    build: 
+    build:
       context: ./site
     ports:
       - 8080:80
@@ -22,6 +22,19 @@ services:
       - db
     volumes:
       - ./site:/var/www/html
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USER: ${DB_USER}
+      AUTH_KEY: ${AUTH_KEY}
+      AUTH_SALT: ${AUTH_SALT}
+      LOGGED_IN_KEY: ${LOGGED_IN_KEY}
+      LOGGED_IN_SALT: ${LOGGED_IN_SALT}
+      NONCE_KEY: ${NONCE_KEY}
+      NONCE_SALT: ${NONCE_SALT}
+      SECURE_AUTH_KEY: ${SECURE_AUTH_KEY}
+      SECURE_AUTH_SALT: ${SECURE_AUTH_SALT}
   db:
     image: mariadb:latest
     restart: always
