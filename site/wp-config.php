@@ -19,22 +19,22 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', getenv('DB_NAME') ?: 'wordpress_db');
+define('DB_NAME', getenv('WP_DB_NAME') ?: 'wordpress_db');
 
 /** Database username */
-define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_USER', getenv('WP_DB_USER') ?: 'root');
 
 /** Database password */
-define('DB_PASSWORD', getenv('DB_PASSWORD') ?: 'password');
+define('DB_PASSWORD', getenv('WP_DB_PASSWORD') ?: 'password');
 
 /** Database hostname */
-define('DB_HOST', getenv('DB_HOST') ?: 'db');
+define('DB_HOST', getenv('WP_DB_HOST') ?: 'db');
 
 /** Database charset to use in creating database tables. */
-define('DB_CHARSET', getenv('DB_CHARSET') ?: 'utf8mb4');
+define('DB_CHARSET', getenv('WP_DB_CHARSET') ?: 'utf8mb4');
 
 /** The database collate type. Don't change this if in doubt. */
-define('DB_COLLATE', getenv('DB_COLLATE') ?: '');
+define('DB_COLLATE', getenv('WP_DB_COLLATE') ?: '');
 
 /**#@+
  * Authentication unique keys and salts.
@@ -56,14 +56,14 @@ define('DB_COLLATE', getenv('DB_COLLATE') ?: '');
 /* define('LOGGED_IN_SALT', '){ rl:dD.^2c}k5>VjL5k_rY8j[d`%i5~vuv~dI()CI?@r.1jv:4~4g8^ZrsPZXf'); */
 /* define('NONCE_SALT', 'W :?wI!x{A<5ay$5O3(:)mWwmdr.P3eaPQFXU[B.]<|M1`7wUL))2mN/aw`x;@zs'); */
 
-define('AUTH_KEY', getenv('AUTH_KEY') ?: 'fallback-dev-key');
-define('SECURE_AUTH_KEY', getenv('SECURE_AUTH_KEY') ?: 'fallback-dev-key');
-define('LOGGED_IN_KEY', getenv('LOGGED_IN_KEY') ?: 'fallback-dev-key');
-define('NONCE_KEY', getenv('NONCE_KEY') ?: 'fallback-dev-key');
-define('AUTH_SALT', getenv('AUTH_SALT') ?: 'fallback-dev-key');
-define('SECURE_AUTH_SALT', getenv('SECURE_AUTH_SALT') ?: 'fallback-dev-key');
-define('LOGGED_IN_SALT', getenv('LOGGED_IN_SALT') ?: 'fallback-dev-key');
-define('NONCE_SALT', getenv('NONCE_SALT') ?: 'fallback-dev-key');
+define('AUTH_KEY', getenv('WP_AUTH_KEY') ?: 'fallback-dev-key');
+define('SECURE_AUTH_KEY', getenv('WP_SECURE_AUTH_KEY') ?: 'fallback-dev-key');
+define('LOGGED_IN_KEY', getenv('WP_LOGGED_IN_KEY') ?: 'fallback-dev-key');
+define('NONCE_KEY', getenv('WP_NONCE_KEY') ?: 'fallback-dev-key');
+define('AUTH_SALT', getenv('WP_AUTH_SALT') ?: 'fallback-dev-key');
+define('SECURE_AUTH_SALT', getenv('WP_SECURE_AUTH_SALT') ?: 'fallback-dev-key');
+define('LOGGED_IN_SALT', getenv('WP_LOGGED_IN_SALT') ?: 'fallback-dev-key');
+define('NONCE_SALT', getenv('WP_NONCE_SALT') ?: 'fallback-dev-key');
 
 /**#@-*/
 
