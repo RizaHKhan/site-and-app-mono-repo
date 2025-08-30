@@ -1,2 +1,4 @@
 .env
 site/supervisord.log
+set-secrets.sh
+.php-cs-fixer.cache
