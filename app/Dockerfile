@@ -36,7 +36,7 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
 # Copy Nginx configuration and entrypoint script
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY ./default.conf /etc/nginx/sites-enabled/default
 
 # Set the working directory
 WORKDIR /var/www/html
