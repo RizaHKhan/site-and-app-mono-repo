@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     gd \
     zip
 
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -37,22 +37,29 @@ RUN mkdir -p /home/$user/.composer && \
 
 # Copy Nginx configuration and entrypoint script
 COPY ./default.conf /etc/nginx/sites-enabled/default
+COPY ./entrypoint.sh /etc/entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /etc/entrypoint.sh
 
 # Set the working directory
-WORKDIR /var/www/html
+WORKDIR /app
+
+COPY composer.json composer.lock package.json package-lock.json ./
 
 COPY . .
 
 RUN composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader --no-dev \
-    && npm install --no-audit --no-fund --unsafe-perm \
+    && npm ci --no-audit --no-fund --production --unsafe-perm \
     && npm run build
 
-RUN chown -R www-data:www-data /var/www/html/storage \
-    && chmod -R 775 /var/www/html/storage
+RUN mkdir -p /app/database \
+    && touch /app/database/database.sqlite \
+    && chown -R www-data:www-data /app/database \
+    && chmod -R 775 /app/database
 
 EXPOSE 80
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Define the entrypoint
+ENTRYPOINT ["/etc/entrypoint.sh"]
 
-ENTRYPOINT ["/entrypoint.sh"]
