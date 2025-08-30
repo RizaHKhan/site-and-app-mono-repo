@@ -2,3 +2,5 @@
 site/supervisord.log
 set-secrets.sh
 .php-cs-fixer.cache
+app/vendor
+app/node_modules
