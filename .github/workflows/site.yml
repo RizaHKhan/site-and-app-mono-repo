@@ -9,7 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     container:
-      image: public.ecr.aws/docker/library/php:fpm # Use your Dockerfile base image
+      image: site:latest
       env:
         WP_DB_HOST: ${{ secrets.WP_DB_HOST }}
         WP_DB_NAME: ${{ secrets.WP_DB_NAME }}

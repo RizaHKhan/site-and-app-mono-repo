@@ -9,7 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     container:
-      image: public.ecr.aws/docker/library/php:fpm # Use your Dockerfile base image
+      image: app:latest
       env:
         APP_NAME: Laravel
         APP_ENV: local
