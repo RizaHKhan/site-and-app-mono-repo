@@ -50,7 +50,7 @@ COPY composer.json composer.lock package.json package-lock.json ./
 COPY . .
 
 RUN composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader --no-dev \
-    && npm ci --no-audit --no-fund --production --unsafe-perm \
+    && npm ci --no-audit --no-fund --unsafe-perm \
     && npm run build
 
 RUN mkdir -p /app/database \
