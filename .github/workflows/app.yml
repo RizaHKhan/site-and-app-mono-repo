@@ -8,32 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    container:
-      image: app:latest
-      env:
-        APP_NAME: Laravel
-        APP_ENV: local
-        APP_KEY: ${{ secrets.APP_KEY }}
-        APP_DEBUG: false
-        # APP_URL: ${{ secrets.APP_URL }}
-        APP_LOCALE: en
-        APP_FALLBACK_LOCALE: en
-        APP_FAKER_LOCALE: en_US
-        APP_MAINTENANCE_DRIVER: file
-        APP_MAINTENANCE_STORE: database
-        PHP_CLI_SERVER_WORKERS: 4
-        BCRYPT_ROUNDS: 12
-        LOG_CHANNEL: stack
-        LOG_STACK: single
-        LOG_DEPRECATIONS_CHANNEL: ""
-        LOG_LEVEL: debug
-        DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
-        DB_DATABASE: ${{ secrets.DB_DATABASE }}
-        DB_HOST: ${{ secrets.DB_HOST }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        DB_PORT: ${{ secrets.DB_PORT }}
-        DB_USERNAME: ${{ secrets.DB_USERNAME }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

@@ -8,22 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    container:
-      image: site:latest
-      env:
-        WP_DB_HOST: ${{ secrets.WP_DB_HOST }}
-        WP_DB_NAME: ${{ secrets.WP_DB_NAME }}
-        WP_DB_PASSWORD: ${{ secrets.WP_DB_PASSWORD }}
-        WP_DB_USER: ${{ secrets.WP_DB_USER }}
-        WP_AUTH_KEY: ${{ secrets.WP_AUTH_KEY }}
-        WP_AUTH_SALT: ${{ secrets.WP_AUTH_SALT }}
-        WP_LOGGED_IN_KEY: ${{ secrets.WP_LOGGED_IN_KEY }}
-        WP_LOGGED_IN_SALT: ${{ secrets.WP_LOGGED_IN_SALT }}
-        WP_NONCE_KEY: ${{ secrets.WP_NONCE_KEY }}
-        WP_NONCE_SALT: ${{ secrets.WP_NONCE_SALT }}
-        WP_SECURE_AUTH_KEY: ${{ secrets.WP_SECURE_AUTH_KEY }}
-        WP_SECURE_AUTH_SALT: ${{ secrets.WP_SECURE_AUTH_SALT }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
