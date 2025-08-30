@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 COPY . /var/www/html
 
 # Copy nginx config
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/sites-enabled/default
 
 # Copy supervisor config
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -22,4 +22,3 @@ RUN chown -R www-data:www-data /var/www/html
 EXPOSE 80
 
 CMD ["/usr/bin/supervisord"]
-
