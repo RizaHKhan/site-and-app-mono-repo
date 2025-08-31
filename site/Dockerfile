@@ -14,8 +14,7 @@ COPY . /var/www/html
 
 RUN rm -f /var/www/html/index.nginx-debian.html
 # Copy nginx config
-COPY ./default.conf /etc/nginx/sites-enabled/default
-RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+COPY ./default.conf /etc/nginx/conf.d/default.conf
 
 # Copy supervisor config
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
