@@ -1,11 +1,13 @@
 FROM public.ecr.aws/docker/library/php:fpm
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     nginx supervisor \
     libpng-dev libjpeg-dev libfreetype6-dev libzip-dev zip unzip \
     libonig-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mysqli mbstring zip
+    && docker-php-ext-install gd mysqli mbstring zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy WordPress files
 COPY . /var/www/html
