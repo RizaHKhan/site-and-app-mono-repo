@@ -15,12 +15,14 @@ COPY . /var/www/html
 RUN rm -f /var/www/html/index.nginx-debian.html
 # Copy nginx config
 COPY ./default.conf /etc/nginx/conf.d/default.conf
+RUN rm -f /etc/nginx/sites-enabled/default
 
 # Copy supervisor config
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
 
 EXPOSE 80
 
