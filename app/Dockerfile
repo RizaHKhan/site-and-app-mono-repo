@@ -43,7 +43,7 @@ COPY ./entrypoint.sh /etc/entrypoint.sh
 RUN chmod +x /etc/entrypoint.sh
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /var/www/html
 
 COPY composer.json composer.lock package.json package-lock.json ./
 
@@ -53,13 +53,7 @@ RUN composer install --no-progress --no-interaction --prefer-dist --optimize-aut
     && npm ci --no-audit --no-fund --unsafe-perm \
     && npm run build
 
-RUN mkdir -p /app/database \
-    && touch /app/database/database.sqlite \
-    && chown -R www-data:www-data /app/database \
-    && chmod -R 775 /app/database
-
 EXPOSE 80
 
 # Define the entrypoint
 ENTRYPOINT ["/etc/entrypoint.sh"]
-
