@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 # Copy WordPress files
 COPY . /var/www/html
 
+RUN rm -f /var/www/html/index.nginx-debian.html
 # Copy nginx config
 COPY default.conf /etc/nginx/sites-enabled/default
 
