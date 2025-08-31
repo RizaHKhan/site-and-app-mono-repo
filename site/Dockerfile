@@ -12,10 +12,10 @@ COPY . /var/www/html
 
 RUN rm -f /var/www/html/index.nginx-debian.html
 # Copy nginx config
-COPY default.conf /etc/nginx/sites-enabled/default
+COPY ./default.conf /etc/nginx/sites-enabled/default
 
 # Copy supervisor config
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
