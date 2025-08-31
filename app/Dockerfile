@@ -36,16 +36,14 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
 # Copy Nginx configuration and entrypoint script
-COPY ./default.conf /etc/nginx/conf.d/default.conf
-RUN rm -f /etc/nginx/sites-enabled/default
-
-COPY ./entrypoint.sh /etc/entrypoint.sh
+COPY ./docker/default.conf /etc/nginx/sites-enabled/default
+COPY ./docker/entrypoint.sh /etc/entrypoint.sh
 
 # Make the entrypoint script executable
 RUN chmod +x /etc/entrypoint.sh
 
 # Set the working directory
-WORKDIR /var/www/html
+WORKDIR /app
 
 COPY composer.json composer.lock package.json package-lock.json ./
 

@@ -18,3 +18,4 @@ php artisan optimize
 
 # Start PHP-FPM
 php-fpm
+
