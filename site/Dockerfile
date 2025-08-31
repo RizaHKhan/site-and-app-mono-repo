@@ -13,6 +13,7 @@ COPY . /var/www/html
 RUN rm -f /var/www/html/index.nginx-debian.html
 # Copy nginx config
 COPY ./default.conf /etc/nginx/sites-enabled/default
+RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Copy supervisor config
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -22,4 +23,5 @@ RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
