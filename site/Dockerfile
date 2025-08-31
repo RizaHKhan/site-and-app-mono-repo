@@ -14,11 +14,22 @@ COPY . /var/www/html
 
 RUN rm -f /var/www/html/index.nginx-debian.html
 # Copy nginx config
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 RUN rm -f /etc/nginx/sites-enabled/default
 
 # Copy supervisor config
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+RUN sed -i \
+    -e 's|^listen = .*|listen = /var/run/php-fpm.sock|' \
+    -e 's|^;listen.owner = .*|listen.owner = www-data|' \
+    -e 's|^;listen.group = .*|listen.group = www-data|' \
+    -e 's|^;listen.mode = .*|listen.mode = 0660|' \
+    /usr/local/etc/php-fpm.d/www.conf \
+    && if [ -f /usr/local/etc/php-fpm.d/zz-docker.conf ]; then \
+    sed -i 's|^listen = .*|listen = /var/run/php-fpm.sock|' /usr/local/etc/php-fpm.d/zz-docker.conf; \
+    fi \
+    && grep 'listen' /usr/local/etc/php-fpm.d/*.conf
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html && \
