@@ -36,7 +36,9 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
 # Copy Nginx configuration and entrypoint script
-COPY ./default.conf /etc/nginx/sites-enabled/default
+COPY ./default.conf /etc/nginx/conf.d/default.conf
+RUN rm -f /etc/nginx/sites-enabled/default
+
 COPY ./entrypoint.sh /etc/entrypoint.sh
 
 # Make the entrypoint script executable
