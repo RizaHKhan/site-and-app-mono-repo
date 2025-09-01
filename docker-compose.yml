@@ -23,18 +23,19 @@ services:
     volumes:
       - ./site:/var/www/html
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_NAME: ${DB_NAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_USER: ${DB_USER}
-      AUTH_KEY: ${AUTH_KEY}
-      AUTH_SALT: ${AUTH_SALT}
-      LOGGED_IN_KEY: ${LOGGED_IN_KEY}
-      LOGGED_IN_SALT: ${LOGGED_IN_SALT}
-      NONCE_KEY: ${NONCE_KEY}
-      NONCE_SALT: ${NONCE_SALT}
-      SECURE_AUTH_KEY: ${SECURE_AUTH_KEY}
-      SECURE_AUTH_SALT: ${SECURE_AUTH_SALT}
+      DB_HOST: ${WP_DB_HOST}
+      DB_NAME: ${WP_DB_NAME}
+      DB_PASSWORD: ${WP_DB_PASSWORD}
+      DB_USER: ${WP_DB_USER}
+      AUTH_KEY: ${WP_AUTH_KEY}
+      AUTH_SALT: ${WP_AUTH_SALT}
+      LOGGED_IN_KEY: ${WP_LOGGED_IN_KEY}
+      LOGGED_IN_SALT: ${WP_LOGGED_IN_SALT}
+      NONCE_KEY: ${WP_NONCE_KEY}
+      NONCE_SALT: ${WP_NONCE_SALT}
+      SECURE_AUTH_KEY: ${WP_SECURE_AUTH_KEY}
+      SECURE_AUTH_SALT: ${WP_SECURE_AUTH_SALT}
+      WP_HOME: http://localhost:8080 
   db:
     image: mariadb:latest
     restart: always

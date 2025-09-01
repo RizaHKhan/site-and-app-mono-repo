@@ -95,6 +95,7 @@ $table_prefix = 'wp_';
  */
 define('WP_DEBUG', false);
 
+define('WP_HOME', getenv('WP_HOME') ?: 'http://localhost:8080');
 /* Add any custom values between this line and the "stop editing" line. */
 
 /* That's all, stop editing! Happy publishing. */
