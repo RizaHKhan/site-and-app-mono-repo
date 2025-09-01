@@ -1,53 +1,8 @@
-FROM public.ecr.aws/docker/library/php:fpm
-
-RUN apt-get update && \
-    apt-get install -y \
-    nginx supervisor \
-    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev zip unzip \
-    libonig-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mysqli mbstring zip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Copy WordPress files
+FROM wordpress:latest
+# Copy custom WordPress files (if any)
 COPY . /var/www/html
 
-RUN rm -f /var/www/html/index.nginx-debian.html
-# Copy nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-RUN rm -f /etc/nginx/sites-enabled/default
-
-# Copy supervisor config
-COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-RUN sed -i \
-    -e 's|^listen = .*|listen = /var/run/php-fpm.sock|' \
-    -e 's|^;listen.owner = .*|listen.owner = www-data|' \
-    -e 's|^;listen.group = .*|listen.group = www-data|' \
-    -e 's|^;listen.mode = .*|listen.mode = 0660|' \
-    /usr/local/etc/php-fpm.d/www.conf \
-    && if [ -f /usr/local/etc/php-fpm.d/zz-docker.conf ]; then \
-    sed -i 's|^listen = .*|listen = /var/run/php-fpm.sock|' /usr/local/etc/php-fpm.d/zz-docker.conf; \
-    fi \
-    && grep 'listen' /usr/local/etc/php-fpm.d/*.conf
-
-RUN if grep -q '^pm.max_children' /usr/local/etc/php-fpm.d/www.conf; then \
-      sed -i 's|^pm.max_children =.*|pm.max_children = 20|' /usr/local/etc/php-fpm.d/www.conf; \
-    else \
-      echo 'pm.max_children = 20' >> /usr/local/etc/php-fpm.d/www.conf; \
-    fi \
-    && if [ -f /usr/local/etc/php-fpm.d/zz-docker.conf ]; then \
-      if grep -q '^pm.max_children' /usr/local/etc/php-fpm.d/zz-docker.conf; then \
-        sed -i 's|^pm.max_children =.*|pm.max_children = 20|' /usr/local/etc/php-fpm.d/zz-docker.conf; \
-      else \
-        echo 'pm.max_children = 20' >> /usr/local/etc/php-fpm.d/zz-docker.conf; \
-      fi \
-    fi
-
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 /var/www/html
+# Set permissions (optional, usually handled by the image)
+RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
-
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
