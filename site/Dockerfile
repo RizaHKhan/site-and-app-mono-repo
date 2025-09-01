@@ -31,6 +31,19 @@ RUN sed -i \
     fi \
     && grep 'listen' /usr/local/etc/php-fpm.d/*.conf
 
+RUN if grep -q '^pm.max_children' /usr/local/etc/php-fpm.d/www.conf; then \
+      sed -i 's|^pm.max_children =.*|pm.max_children = 20|' /usr/local/etc/php-fpm.d/www.conf; \
+    else \
+      echo 'pm.max_children = 20' >> /usr/local/etc/php-fpm.d/www.conf; \
+    fi \
+    && if [ -f /usr/local/etc/php-fpm.d/zz-docker.conf ]; then \
+      if grep -q '^pm.max_children' /usr/local/etc/php-fpm.d/zz-docker.conf; then \
+        sed -i 's|^pm.max_children =.*|pm.max_children = 20|' /usr/local/etc/php-fpm.d/zz-docker.conf; \
+      else \
+        echo 'pm.max_children = 20' >> /usr/local/etc/php-fpm.d/zz-docker.conf; \
+      fi \
+    fi
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html
@@ -38,4 +51,3 @@ RUN chown -R www-data:www-data /var/www/html && \
 EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
