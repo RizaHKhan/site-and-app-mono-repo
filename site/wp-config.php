@@ -90,6 +90,8 @@ define('WP_DEBUG', true);
 define('WP_HOME', getenv('WP_HOME') ?: 'http://localhost:8080');
 /* Add any custom values between this line and the "stop editing" line. */
 
+define('WP_INSTALLING', false);
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
