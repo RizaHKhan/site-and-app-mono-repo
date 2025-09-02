@@ -1,9 +1,6 @@
 .env
-site/supervisord.log
-set-secrets.sh
+setup.sh
 .php-cs-fixer.cache
-app/vendor
-app/node_modules
-app/public/storage
-node_modules
 vendor
+node_modules
+public/storage

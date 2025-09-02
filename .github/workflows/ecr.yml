@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'app/**'
 
 jobs:
   build-and-deploy:
@@ -29,6 +27,6 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t app:latest -f app/Dockerfile app 
+          docker build -t app:latest .
           docker tag app:latest ${{secrets.LOCATION}}/app:latest
           docker push ${{secrets.LOCATION}}/app:latest
