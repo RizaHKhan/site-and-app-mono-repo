@@ -67,4 +67,6 @@ RUN composer install --no-progress --no-interaction --prefer-dist --optimize-aut
 
 EXPOSE 80
 
-ENTRYPOINT ["supervisord", "-c", "/etc/supervisord.conf"]
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
