@@ -15,7 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
 
-        $middleware->trustProxies(headers: 31); // 31 = trust all X-Forwarded-* headers
+        $middleware->trustProxies(headers: 31);
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
         $middleware->web(append: [
             HandleAppearance::class,
